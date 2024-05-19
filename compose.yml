@@ -1,0 +1,28 @@
+version: '3.8'
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - "8080:8080"
+    networks:
+      - frontend-net
+  backend:
+    build: ./backend
+    ports:
+      - "3000:3000"
+    networks:
+      - backend-net
+      - frontend-net
+  database:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: mydatabase
+    ports:
+      - "5432:5432"
+    networks:
+      - backend-net
+networks:
+  frontend-net:
+  backend-net:
